@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                     email)
                 startActivity(intent)
             } else {
-                binding.emailValidationText.visibility = View.VISIBLE
+                binding.emailInput.error = "Invalid email address."
             }
         }
     }
@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initEmailTextField() {
         binding.emailInput.editText?.doAfterTextChanged {
-            binding.emailValidationText.visibility = View.INVISIBLE
+            binding.emailInput.error = null
             updateLoginButtonEnabledStatus()
         }
     }
@@ -72,11 +72,5 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    private fun startImplicitLoginButtonIntent() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("https://infinum.com")
-        startActivity(intent)
     }
 }
