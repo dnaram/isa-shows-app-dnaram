@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="128dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:expandedTitleMarginStart="35dp"
+            app:expandedTitleMarginBottom="28dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:contentScrim="@color/black"
+            app:statusBarScrim="@color/black"
+            android:background="@color/black">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="The Office"
+            app:navigationIcon="@drawable/ic_west"
+            android:elevation="0dp"
+            app:layout_collapseMode="pin"
+            android:background="@color/black"
+            style="@style/MyToolbarStyle"
+            app:titleTextColor="@color/black">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Note: A RecyclerView can also be used -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.LoginActivity">
+
+            <ImageView
+                android:id="@+id/showImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/office"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                app:layout_constraintTop_toBottomOf="@+id/showImage"
+                app:layout_constraintStart_toStartOf="@+id/showImage"
+                app:layout_constraintEnd_toEndOf="@id/showImage"
+                android:layout_marginTop="12dp"
+                android:textFontWeight="400"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                />
+
+            <TextView
+                android:id="@+id/reviewsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                app:layout_constraintStart_toStartOf="@+id/showImage"
+                android:textColor="@color/black"
+                android:textFontWeight="700"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+                android:textSize="24dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/reviewsStatsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="3 REVIEWS, 3.63 AVERAGE"
+                app:layout_constraintStart_toStartOf="@+id/reviewsText"
+                app:layout_constraintTop_toBottomOf="@+id/reviewsText"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/reviewRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/reviewsStatsText"
+                app:layout_constraintTop_toBottomOf="@+id/reviewsStatsText"
+                android:numStars="5"
+                android:min="0"
+                android:max="5"
+                android:stepSize="0.01"
+                android:rating="3.63"
+                android:progressTint="#52368C"
+                android:progressBackgroundTint="#52368C"
+                android:secondaryProgressTint="#52368C"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"
+                android:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/reviewRatingBar"
+                android:paddingTop="20dp"
+                tools:listitem="@layout/view_review_item"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/noReviewsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="No reviews yet."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@+id/reviewsText"
+                android:layout_marginTop="15dp"
+                android:textFontWeight="400"
+                android:textSize="17dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/writeReviewButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/showImage"
+                app:layout_constraintEnd_toEndOf="@id/showImage"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@id/noReviewsText"
+                android:layout_marginTop="30dp"
+                android:text="Write a Review"
+                android:background="@drawable/bg_review_button"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white"
+                android:textFontWeight="700"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

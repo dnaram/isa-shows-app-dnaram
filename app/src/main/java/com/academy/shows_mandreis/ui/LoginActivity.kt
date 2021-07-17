@@ -1,13 +1,7 @@
-package com.academy.shows_mandreis
+package com.academy.shows_mandreis.ui
 
-import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.core.widget.doAfterTextChanged
@@ -41,9 +35,9 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailInput.editText?.text.toString()
             val valid = isEmailValid(email)
             if (valid) {
-                val intent = WelcomeActivity.buildIntent(
-                    this,
-                    email)
+                val intent = ShowsActivity.buildIntent(
+                    this
+                )
                 startActivity(intent)
             } else {
                 binding.emailInput.error = "Invalid email address."

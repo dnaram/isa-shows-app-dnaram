@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="Write a review"/>
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/reviewRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:min="0"
+        android:max="5"
+        android:stepSize="1"
+        android:rating="0"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="40dp"
+        android:progressTint="#52368C"
+        android:progressBackgroundTint="#52368C" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/commentInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="Comment"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="#52368C"
+        app:placeholderTextColor="#52368C"
+        app:hintTextColor="#52368C"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
+            android:textFontWeight="400"
+            android:textSize="16sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginHorizontal="16dp"
+        android:text="Submit"
+        android:background="@drawable/bg_review_button"
+        android:textAllCaps="false"
+        app:cornerRadius="40dp"/>
+
+</LinearLayout>
