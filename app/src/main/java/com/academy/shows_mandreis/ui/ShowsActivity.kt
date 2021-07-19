@@ -59,7 +59,6 @@ class ShowsActivity : AppCompatActivity() {
             binding.noShowsText.visibility = View.VISIBLE
             binding.testButton.text = "Show shows! (pun intended)"
         }
-
     }
 
     private fun removeTitleBar() {

@@ -1,33 +1,43 @@
-package com.academy.shows_mandreis.ui
+package com.academy.shows_mandreis.fragments
 
-import androidx.appcompat.app.AppCompatActivity
+import com.academy.shows_mandreis.databinding.FragmentLoginBinding
+
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
+import android.util.Log
+import android.view.*
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
-import com.academy.shows_mandreis.databinding.ActivityLoginBinding
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.academy.shows_mandreis.ui.ShowsActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : Fragment() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        removeTitleBar()
-
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initLoginButton()
         initPasswordTextField()
         initEmailTextField()
     }
 
-    private fun removeTitleBar() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        supportActionBar?.hide()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initLoginButton() {
@@ -35,10 +45,8 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailInput.editText?.text.toString()
             val valid = isEmailValid(email)
             if (valid) {
-                val intent = ShowsActivity.buildIntent(
-                    this
-                )
-                startActivity(intent)
+                val action = LoginFragmentDirections.loginToShows()
+                findNavController().navigate(action)
             } else {
                 binding.emailInput.error = "Invalid email address."
             }
@@ -67,5 +75,4 @@ class LoginActivity : AppCompatActivity() {
     private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
 }
