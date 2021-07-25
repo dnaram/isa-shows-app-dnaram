@@ -6,7 +6,7 @@ import com.academy.shows_mandreis.model.Show
 
 object MockDatabase {
 
-    private var shows: List<Show> = listOf(
+    private var shows: List<Show> = mutableListOf(
         Show("1", "How I Met Your Mother", "A man tells his kids about all the women he banged before meeting their mother.", R.drawable.how_i_met_your_mother),
         Show("2", "Game of Thrones", "Random people in the winter fight for a chair.", R.drawable.game_of_thrones),
         Show("3", "Grey's Anatomy", "For every patient saved, two doctors will die.", R.drawable.greys_anatomy),

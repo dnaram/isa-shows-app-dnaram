@@ -114,7 +114,6 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         app:layout_constraintTop_toBottomOf="@+id/emailInput"
-        android:layout_marginTop="25dp"
         android:hint="Password"
         app:boxBackgroundMode="outline"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -135,6 +134,27 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/rememberBeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/passwordInput"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        android:buttonTint="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/rememberBeCheckBox"
+        app:layout_constraintTop_toTopOf="@+id/rememberBeCheckBox"
+        app:layout_constraintBottom_toBottomOf="@+id/rememberBeCheckBox"
+        android:text="Remember me"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/white"
+        android:textFontWeight="400"
+        android:textSize="17dp"
+        />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
@@ -153,6 +173,7 @@
         android:fontFamily="sans-serif"
         android:enabled="false"
         android:textColor="@color/button_text_selector"
-        android:textFontWeight="700" />
+        android:textFontWeight="700"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.academy.shows_mandreis.R
@@ -14,6 +15,7 @@ import com.academy.shows_mandreis.model.Review
 import com.academy.shows_mandreis.ui.ReviewsAdapter
 import com.academy.shows_mandreis.ui.ShowDetailsActivity
 import com.academy.shows_mandreis.utility.MockDatabase
+import com.academy.shows_mandreis.view_models.ReviewsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlin.math.roundToInt
 
@@ -28,6 +30,8 @@ class ShowDetailsFragment : Fragment() {
 
     val args: ShowDetailsFragmentArgs by navArgs()
 
+    private val viewModel: ReviewsViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,10 +43,6 @@ class ShowDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("NAME", args.name)
-        Log.d("DESC", args.desc)
-        Log.d("ID", args.id)
 
         binding.topAppBar.title = args.name
         binding.descriptionText.text = args.desc
@@ -58,6 +58,15 @@ class ShowDetailsFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             activity?.supportFragmentManager?.popBackStack()
         }
+
+        viewModel.initReviews(args.id)
+        viewModel.getReviewsLiveData().observe(viewLifecycleOwner, { reviews ->
+            loadItems(reviews)
+        })
+    }
+
+    private fun loadItems(reviews: List<Review>) {
+        adapter?.setItems(reviews)
     }
 
     override fun onDestroyView() {
@@ -93,23 +102,21 @@ class ShowDetailsFragment : Fragment() {
     private fun initRecyclerView() {
         binding.reviewsRecycler.layoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
 
-        val reviews = MockDatabase.getShowById(args.id)!!.reviews
+        val reviews = emptyList<Review>()
         adapter = ReviewsAdapter(reviews)
         binding.reviewsRecycler.adapter = adapter
     }
 
     private fun showBottomSheet() {
-        Log.d("TAG", "mama je")
         val dialog = view?.let { BottomSheetDialog(it.context) }
 
         val dialogBinding = DialogAddReviewBinding.inflate(layoutInflater)
         dialog?.setContentView(dialogBinding.root)
 
         dialogBinding.confirmButton.setOnClickListener {
-            // TODO: 15. 07. 2021. Send to adapter
             val review = Review("imenko.prezimenovic", dialogBinding.commentInput.editText?.text.toString(), dialogBinding.reviewRatingBar.rating.toInt(), R.drawable.ic_profile_placeholder)
-            adapter?.addReview(review)
-            MockDatabase.getShowById(args.id)!!.reviews += review
+            // adapter?.addReview(review)
+            viewModel.addReview(review)
             dialog?.dismiss()
             refreshScreen()
         }

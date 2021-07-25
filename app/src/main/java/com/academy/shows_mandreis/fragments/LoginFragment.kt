@@ -1,5 +1,6 @@
 package com.academy.shows_mandreis.fragments
 
+import android.content.Context
 import com.academy.shows_mandreis.databinding.FragmentLoginBinding
 
 import android.os.Bundle
@@ -30,9 +31,20 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val prefs = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val alreadySeenShows = prefs.getBoolean("alreadyOnShows", false)
+        if (alreadySeenShows) {
+            navigateToShowsFragment()
+        }
+
         initLoginButton()
         initPasswordTextField()
         initEmailTextField()
+    }
+
+    private fun navigateToShowsFragment() {
+        val action = LoginFragmentDirections.loginToShows()
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
@@ -45,11 +57,28 @@ class LoginFragment : Fragment() {
             val email = binding.emailInput.editText?.text.toString()
             val valid = isEmailValid(email)
             if (valid) {
-                val action = LoginFragmentDirections.loginToShows()
-                findNavController().navigate(action)
+                saveEmailAddress(binding.emailInput.editText?.text.toString())
+                updateRememberMeStatus(binding.rememberBeCheckBox.isChecked)
+                navigateToShowsFragment()
             } else {
                 binding.emailInput.error = "Invalid email address."
             }
+        }
+    }
+
+    private fun saveEmailAddress(email: String) {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString("emailAddress", email)
+            apply()
+        }
+    }
+
+    private fun updateRememberMeStatus(status: Boolean) {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putBoolean("rememberMeStatus", status)
+            apply()
         }
     }
 

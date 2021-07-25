@@ -11,7 +11,9 @@
 
         <action
             android:id="@+id/login_to_shows"
-            app:destination="@id/shows"/>
+            app:destination="@id/shows"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -26,8 +28,7 @@
         <action
             android:id="@+id/shows_to_login"
             app:destination="@id/login"
-            app:popUpTo="@id/login"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/shows"/>
     </fragment>
 
     <fragment
