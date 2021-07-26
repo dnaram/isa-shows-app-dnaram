@@ -2,4 +2,11 @@
     <string name="app_name">Shows-mandreis</string>
     <string name="this_is_a_show_pic">This is a show pic.</string>
     <string name="email_input_error_message">Invalid email address.</string>
+    <string name="show_shows">Show shows (pun intended)!</string>
+    <string name="clear_shows">Clear shows!</string>
+    <string name="reviews">Reviews</string>
+    <string name="no_reviews_yet">No reviews yet.</string>
+    <string name="write_a_review">Write a Review</string>
+    <string name="rating_stats">%1$d REVIEWS, %2$.2f AVERAGE</string>
+
 </resources>

@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.academy.shows_mandreis.R
 import com.academy.shows_mandreis.databinding.DialogAddReviewBinding
@@ -41,12 +43,12 @@ class ShowDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("NAME", args.name)
-        Log.d("DESC", args.desc)
+        Log.d("DESC", args.description)
         Log.d("ID", args.id)
 
         binding.topAppBar.title = args.name
-        binding.descriptionText.text = args.desc
-        binding.showImage.setImageResource(args.pic)
+        binding.descriptionText.text = args.description
+        binding.showImage.setImageResource(args.picture)
 
         binding.writeReviewButton.setOnClickListener {
             showBottomSheet()
@@ -56,7 +58,7 @@ class ShowDetailsFragment : Fragment() {
         refreshScreen()
 
         binding.topAppBar.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
+            findNavController().navigateUp()
         }
     }
 
@@ -85,13 +87,18 @@ class ShowDetailsFragment : Fragment() {
 
             val average = ((total / reviews.size) * 100).roundToInt() / 100.0
 
-            binding.reviewsStatsText.text = reviews.size.toString().plus(" REVIEWS, ").plus(average.toString()).plus(" AVERAGE")
+            binding.reviewsStatsText.text = String.format(resources.getString(R.string.rating_stats), reviews.size,  average)
+            binding.reviewRatingBar.setIsIndicator(false)
             binding.reviewRatingBar.rating = average.toFloat()
+            binding.reviewRatingBar.setIsIndicator(true)
         }
     }
 
     private fun initRecyclerView() {
         binding.reviewsRecycler.layoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
+        val itemDecoration = DividerItemDecoration(view?.context, DividerItemDecoration.VERTICAL)
+        itemDecoration.setDrawable(resources.getDrawable(R.drawable.layer, null))
+        binding.reviewsRecycler.addItemDecoration(itemDecoration)
 
         val reviews = MockDatabase.getShowById(args.id)!!.reviews
         adapter = ReviewsAdapter(reviews)
@@ -99,14 +106,12 @@ class ShowDetailsFragment : Fragment() {
     }
 
     private fun showBottomSheet() {
-        Log.d("TAG", "mama je")
         val dialog = view?.let { BottomSheetDialog(it.context) }
 
         val dialogBinding = DialogAddReviewBinding.inflate(layoutInflater)
         dialog?.setContentView(dialogBinding.root)
 
         dialogBinding.confirmButton.setOnClickListener {
-            // TODO: 15. 07. 2021. Send to adapter
             val review = Review("imenko.prezimenovic", dialogBinding.commentInput.editText?.text.toString(), dialogBinding.reviewRatingBar.rating.toInt(), R.drawable.ic_profile_placeholder)
             adapter?.addReview(review)
             MockDatabase.getShowById(args.id)!!.reviews += review

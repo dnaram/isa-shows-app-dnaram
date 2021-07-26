@@ -16,8 +16,6 @@ import com.academy.shows_mandreis.utility.MockDatabase
 class ShowsFragment : Fragment() {
 
     private var _binding: FragmentShowsBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private var adapter: ShowsAdapter? = null
     private var showsVisible = true
@@ -55,19 +53,18 @@ class ShowsFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun switchScreenShowsState() {
         showsVisible = !showsVisible
         if (showsVisible) {
             binding.showsRecycler.visibility = View.VISIBLE
             binding.noShowsImage.visibility = View.GONE
             binding.noShowsText.visibility = View.GONE
-            binding.testButton.text = "Clear shows!"
+            binding.testButton.text = resources.getString(R.string.clear_shows)
         } else {
             binding.showsRecycler.visibility = View.GONE
             binding.noShowsImage.visibility = View.VISIBLE
             binding.noShowsText.visibility = View.VISIBLE
-            binding.testButton.text = "Show shows! (pun intended)"
+            binding.testButton.text = resources.getString(R.string.show_shows)
         }
     }
 
