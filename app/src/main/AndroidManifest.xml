@@ -9,15 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Showsmandreis">
-        <activity android:name=".ui.LoginActivity">
-            <intent-filter>
+        <activity android:name=".fragments.NavigationActivity"><intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.ShowDetailsActivity" />
-        <activity android:name=".ui.ShowsActivity">
         </activity>
     </application>
 

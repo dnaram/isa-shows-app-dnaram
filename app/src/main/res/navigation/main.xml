@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.academy.shows_mandreis.fragments.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/login_to_shows"
+            app:destination="@id/shows"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/shows"
+        android:name="com.academy.shows_mandreis.fragments.ShowsFragment"
+        tools:layout="@layout/fragment_shows">
+
+        <action
+            android:id="@+id/shows_to_show_details"
+            app:destination="@id/show_details"/>
+
+        <action
+            android:id="@+id/shows_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/show_details"
+        android:name="com.academy.shows_mandreis.fragments.ShowDetailsFragment"
+        tools:layout="@layout/fragment_show_details">
+
+        <argument
+            android:name="id"
+            app:argType="string"/>
+        <argument
+            android:name="name"
+            app:argType="string"/>
+        <argument
+            android:name="desc"
+            app:argType="string"/>
+        <argument
+            android:name="pic"
+            app:argType="integer"/>
+
+    </fragment>
+</navigation>
