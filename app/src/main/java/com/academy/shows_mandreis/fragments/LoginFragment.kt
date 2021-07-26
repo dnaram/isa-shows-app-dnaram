@@ -9,15 +9,21 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.academy.shows_mandreis.ui.ShowsActivity
+import com.academy.shows_mandreis.view_models.LoginViewModel
+import com.academy.shows_mandreis.view_models.RegistrationViewModel
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private val viewModel: LoginViewModel by viewModels()
+
+    val args: LoginFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +37,35 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getLoginResultLiveData().observe(this.viewLifecycleOwner) { isLoginSuccessful  ->
+            if (isLoginSuccessful) {
+                Toast.makeText(context, "Login successfully", Toast.LENGTH_SHORT).show()
+                saveEmailAddress(binding.emailInput.editText?.text.toString())
+                updateRememberMeStatus(binding.rememberBeCheckBox.isChecked)
+                navigateToShowsFragment()
+            } else {
+                Toast.makeText(context, "Email or password are incorrect", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         val prefs = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         val alreadySeenShows = prefs.getBoolean("alreadyOnShows", false)
         if (alreadySeenShows) {
             navigateToShowsFragment()
         }
 
+        initScreen()
+
         initLoginButton()
         initPasswordTextField()
         initEmailTextField()
+    }
+
+    private fun initScreen() {
+        if (args.success == "yes") {
+            binding.loginText.text = "Registration successful!"
+            binding.registerButton.visibility = View.GONE
+        }
     }
 
     private fun navigateToShowsFragment() {
@@ -57,11 +83,10 @@ class LoginFragment : Fragment() {
             val email = binding.emailInput.editText?.text.toString()
             val valid = isEmailValid(email)
             if (valid) {
-                saveEmailAddress(binding.emailInput.editText?.text.toString())
-                updateRememberMeStatus(binding.rememberBeCheckBox.isChecked)
-                navigateToShowsFragment()
+                val password = binding.passwordInput.editText?.text.toString()
+                viewModel.login(email, password)
             } else {
-                binding.emailInput.error = "Invalid email address."
+                binding.emailInput.error = "Invalid email address format."
             }
         }
     }

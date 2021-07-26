@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.Settings
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
@@ -17,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.academy.shows_mandreis.databinding.DialogUserSettingsBinding
 import com.academy.shows_mandreis.databinding.FragmentShowsBinding
-import com.academy.shows_mandreis.model.Show
+import com.academy.shows_mandreis.networking.models.Show
 import com.academy.shows_mandreis.permissions.preparePermissionsContract
 import com.academy.shows_mandreis.ui.ShowsAdapter
 import com.academy.shows_mandreis.utility.FileUtil
@@ -49,7 +47,6 @@ class ShowsFragment : Fragment() {
 
     private fun refreshProfilePhotos() {
         val file = FileUtil.getImageFile(view?.context)
-        Log.d("EXISTS", file?.exists().toString())
         if (file != null) {
             Glide.with(this)
                 .load(file.toUri())
@@ -63,7 +60,6 @@ class ShowsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
             view?.let { FileUtil.createImageFile(it.context) }
-            Log.d("WRITE PERMISSSION", Settings.System.canWrite(view?.context).toString())
             refreshProfilePhotos()
         }
     }
@@ -106,7 +102,7 @@ class ShowsFragment : Fragment() {
     }
 
     private fun navigateToLoginScreen() {
-        val action = ShowsFragmentDirections.showsToLogin()
+        val action = ShowsFragmentDirections.showsToLogin("no")
         findNavController().navigate(action)
     }
 

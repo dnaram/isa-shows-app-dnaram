@@ -1,15 +1,16 @@
 package com.academy.shows_mandreis.ui
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.shows_mandreis.databinding.ViewShowItemBinding
-import com.academy.shows_mandreis.model.Show
+import com.academy.shows_mandreis.networking.models.Show
+import com.bumptech.glide.Glide
 
 class ShowsAdapter(
     private var shows: List<Show>,
-    private val onClickCallback: (String, String, String, Int) -> Unit
+    private val onClickCallback: (String, String, String, String) -> Unit
 ) : RecyclerView.Adapter<ShowsAdapter.ShowViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowViewHolder {
@@ -33,12 +34,14 @@ class ShowsAdapter(
     inner class ShowViewHolder(private val binding: ViewShowItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(show: Show) {
-            binding.showName.text = show.name
+            binding.showName.text = show.title
             binding.showDescription.text = show.description
-            binding.showImage.setImageResource(show.imageResourceId)
+            Glide.with(itemView)
+                .load(show.imageUrl)
+                .into(binding.showImage)
 
             binding.showCard.setOnClickListener {
-                onClickCallback(show.ID, show.name, show.description, show.imageResourceId)
+                onClickCallback(show.id.toString(), show.title, show.description, show.imageUrl)
             }
         }
     }

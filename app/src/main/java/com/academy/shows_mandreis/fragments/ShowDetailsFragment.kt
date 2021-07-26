@@ -16,6 +16,7 @@ import com.academy.shows_mandreis.ui.ReviewsAdapter
 import com.academy.shows_mandreis.ui.ShowDetailsActivity
 import com.academy.shows_mandreis.utility.MockDatabase
 import com.academy.shows_mandreis.view_models.ReviewsViewModel
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlin.math.roundToInt
 
@@ -45,8 +46,10 @@ class ShowDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.topAppBar.title = args.name
-        binding.descriptionText.text = args.desc
-        binding.showImage.setImageResource(args.pic)
+        binding.descriptionText.text = args.description
+        Glide.with(this)
+            .load(args.photo)
+            .into(binding.showImage)
 
         binding.writeReviewButton.setOnClickListener {
             showBottomSheet()

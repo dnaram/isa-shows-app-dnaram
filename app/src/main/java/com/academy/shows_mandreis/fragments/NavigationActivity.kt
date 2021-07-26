@@ -1,11 +1,13 @@
 package com.academy.shows_mandreis.fragments
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import com.academy.shows_mandreis.databinding.ActivityNavigationBinding
+import com.academy.shows_mandreis.networking.ApiModule
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -18,6 +20,8 @@ class NavigationActivity : AppCompatActivity() {
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ApiModule.initRetrofit(getPreferences(Context.MODE_PRIVATE))
 
     }
 
