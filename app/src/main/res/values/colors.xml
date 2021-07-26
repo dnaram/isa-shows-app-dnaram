@@ -8,5 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="colorOnPrimary">#000000</color>
+
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFFFFF</color>
 </resources>

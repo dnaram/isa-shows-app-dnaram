@@ -2,6 +2,7 @@ package com.academy.shows_mandreis.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.academy.shows_mandreis.R
 import com.academy.shows_mandreis.databinding.ActivityShowDetailsBinding
@@ -16,8 +18,8 @@ import com.academy.shows_mandreis.databinding.DialogAddReviewBinding
 import com.academy.shows_mandreis.model.Review
 import com.academy.shows_mandreis.utility.MockDatabase
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.lang.Math.round
 import kotlin.math.roundToInt
+
 
 class ShowDetailsActivity: AppCompatActivity() {
 
@@ -28,15 +30,15 @@ class ShowDetailsActivity: AppCompatActivity() {
 
         private const val EXTRA_ID = "EXTRA_ID"
         private const val EXTRA_NAME = "EXTRA_NAME"
-        private const val EXTRA_DESC = "EXTRA_DESC"
-        private const val EXTRA_PIC = "EXTRA_PIC"
+        private const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
+        private const val EXTRA_PICTURE = "EXTRA_PICTURE"
 
         fun buildIntent(activity: Activity, id: String, name: String, desc: String, pic: Int) : Intent {
             val intent = Intent(activity, ShowDetailsActivity::class.java)
             intent.putExtra(EXTRA_ID, id)
             intent.putExtra(EXTRA_NAME, name)
-            intent.putExtra(EXTRA_DESC, desc)
-            intent.putExtra(EXTRA_PIC, pic)
+            intent.putExtra(EXTRA_DESCRIPTION, desc)
+            intent.putExtra(EXTRA_PICTURE, pic)
             return intent
         }
     }
@@ -50,8 +52,8 @@ class ShowDetailsActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         binding.topAppBar.title = intent.extras?.getString(EXTRA_NAME)
-        binding.descriptionText.text = intent.extras?.getString(EXTRA_DESC)
-        intent.extras?.getInt(EXTRA_PIC)?.let { binding.showImage.setImageResource(it) }
+        binding.descriptionText.text = intent.extras?.getString(EXTRA_DESCRIPTION)
+        intent.extras?.getInt(EXTRA_PICTURE)?.let { binding.showImage.setImageResource(it) }
 
         binding.writeReviewButton.setOnClickListener {
             showBottomSheet()
@@ -87,12 +89,17 @@ class ShowDetailsActivity: AppCompatActivity() {
             val average = ((total / reviews.size) * 100).roundToInt() / 100.0
 
             binding.reviewsStatsText.text = reviews.size.toString().plus(" REVIEWS, ").plus(average.toString()).plus(" AVERAGE")
+            binding.reviewRatingBar.setIsIndicator(false)
             binding.reviewRatingBar.rating = average.toFloat()
+            binding.reviewRatingBar.setIsIndicator(true)
         }
     }
 
     private fun initRecyclerView() {
         binding.reviewsRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val itemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        itemDecoration.setDrawable(resources.getDrawable(R.drawable.layer, null))
+        binding.reviewsRecycler.addItemDecoration(itemDecoration)
 
         val reviews = MockDatabase.getShowById(intent.extras?.getString(EXTRA_ID)!!)!!.reviews
         adapter = ReviewsAdapter(reviews)

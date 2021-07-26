@@ -7,8 +7,7 @@ data class Show(
     val name: String,
     val description: String,
     @DrawableRes val imageResourceId: Int,
-) {
     var reviews:  List<Review> = emptyList()
-}
+)
 
 
