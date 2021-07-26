@@ -32,8 +32,6 @@
         android:layout_marginTop="5dp"
         />
 
-
-
     <TextView
         android:id="@+id/showsText"
         android:layout_width="wrap_content"
@@ -63,7 +61,7 @@
         android:textSize="34dp"
         android:textFontWeight="900"
         app:layout_constraintTop_toBottomOf="@+id/showsText"
-        android:layout_marginTop="154dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="24dp"
         />
 
@@ -96,17 +94,16 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
-        app:endIconTint="@color/white"
         app:placeholderTextColor="@color/white"
         android:outlineAmbientShadowColor="@color/white"
-        app:hintTextColor="@color/white"
-        app:errorEnabled="true"
-        >
+        app:hintTextColor="@color/white">
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"/>
+
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +116,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         app:layout_constraintTop_toBottomOf="@+id/emailInput"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:hint="Password"
         app:boxBackgroundMode="outline"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

@@ -27,7 +27,7 @@
                 android:layout_height="194dp"
                 tools:srcCompat="@drawable/how_i_met_your_mother"
                 android:scaleType="centerCrop"
-                android:contentDescription="This is a show pic."
+                android:contentDescription="@string/this_is_a_show_pic"
                 />
 
             <LinearLayout
