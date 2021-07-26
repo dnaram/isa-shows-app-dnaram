@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.academy.shows_mandreis.model.Review
 import com.academy.shows_mandreis.utility.MockDatabase
 
-class ReviewsViewModel : ViewModel() {
+class ShowDetailsViewModel : ViewModel() {
 
     private lateinit var reviews: List<Review>
 

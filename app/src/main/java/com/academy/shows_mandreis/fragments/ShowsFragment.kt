@@ -29,8 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 class ShowsFragment : Fragment() {
 
     private var _binding: FragmentShowsBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
     private var adapter: ShowsAdapter? = null
     private var showsVisible = true
