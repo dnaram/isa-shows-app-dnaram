@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.academy.shows_mandreis.R
 import com.academy.shows_mandreis.databinding.DialogUserSettingsBinding
 import com.academy.shows_mandreis.databinding.FragmentShowsBinding
 import com.academy.shows_mandreis.model.Show
