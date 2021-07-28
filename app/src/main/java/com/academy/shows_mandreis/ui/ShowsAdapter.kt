@@ -25,6 +25,10 @@ class ShowsAdapter(
         return shows.size
     }
 
+    fun setItems(items: List<Show>) {
+        shows = items
+        notifyDataSetChanged()
+    }
 
     inner class ShowViewHolder(private val binding: ViewShowItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

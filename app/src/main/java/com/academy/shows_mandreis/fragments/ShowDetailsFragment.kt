@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,8 +15,7 @@ import com.academy.shows_mandreis.databinding.DialogAddReviewBinding
 import com.academy.shows_mandreis.databinding.FragmentShowDetailsBinding
 import com.academy.shows_mandreis.model.Review
 import com.academy.shows_mandreis.ui.ReviewsAdapter
-import com.academy.shows_mandreis.ui.ShowDetailsActivity
-import com.academy.shows_mandreis.utility.MockDatabase
+import com.academy.shows_mandreis.view_models.ShowDetailsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlin.math.roundToInt
 
@@ -24,11 +24,11 @@ class ShowDetailsFragment : Fragment() {
     private var _binding: FragmentShowDetailsBinding? = null
     private var adapter: ReviewsAdapter? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     val args: ShowDetailsFragmentArgs by navArgs()
+
+    private val viewModel: ShowDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,10 +41,6 @@ class ShowDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("NAME", args.name)
-        Log.d("DESC", args.description)
-        Log.d("ID", args.id)
 
         binding.topAppBar.title = args.name
         binding.descriptionText.text = args.description
@@ -60,6 +56,15 @@ class ShowDetailsFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        viewModel.initReviews(args.id)
+        viewModel.getReviewsLiveData().observe(viewLifecycleOwner, { reviews ->
+            loadItems(reviews)
+        })
+    }
+
+    private fun loadItems(reviews: List<Review>) {
+        adapter?.setItems(reviews)
     }
 
     override fun onDestroyView() {
@@ -100,7 +105,7 @@ class ShowDetailsFragment : Fragment() {
         itemDecoration.setDrawable(resources.getDrawable(R.drawable.layer, null))
         binding.reviewsRecycler.addItemDecoration(itemDecoration)
 
-        val reviews = MockDatabase.getShowById(args.id)!!.reviews
+        val reviews = emptyList<Review>()
         adapter = ReviewsAdapter(reviews)
         binding.reviewsRecycler.adapter = adapter
     }
@@ -113,8 +118,8 @@ class ShowDetailsFragment : Fragment() {
 
         dialogBinding.confirmButton.setOnClickListener {
             val review = Review("imenko.prezimenovic", dialogBinding.commentInput.editText?.text.toString(), dialogBinding.reviewRatingBar.rating.toInt(), R.drawable.ic_profile_placeholder)
-            adapter?.addReview(review)
-            MockDatabase.getShowById(args.id)!!.reviews += review
+            // adapter?.addReview(review)
+            viewModel.addReview(review)
             dialog?.dismiss()
             refreshScreen()
         }

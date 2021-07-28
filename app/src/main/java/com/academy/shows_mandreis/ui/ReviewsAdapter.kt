@@ -1,11 +1,9 @@
 package com.academy.shows_mandreis.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.shows_mandreis.databinding.ViewReviewItemBinding
-import com.academy.shows_mandreis.databinding.ViewShowItemBinding
 import com.academy.shows_mandreis.model.Review
 import com.academy.shows_mandreis.model.Show
 
@@ -35,6 +33,10 @@ class ReviewsAdapter(
         return reviews
     }
 
+    fun setItems(items: List<Review>) {
+        reviews = items
+        notifyDataSetChanged()
+    }
 
     inner class ReviewViewHolder(private val binding: ViewReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

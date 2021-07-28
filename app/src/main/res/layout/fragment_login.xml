@@ -29,8 +29,8 @@
         app:layout_constraintTop_toTopOf="@+id/showsText"
         app:layout_constraintEnd_toStartOf="@+id/showsText"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        />
+        android:layout_marginTop="5dp"/>
+
 
     <TextView
         android:id="@+id/showsText"
@@ -62,8 +62,7 @@
         android:textFontWeight="900"
         app:layout_constraintTop_toBottomOf="@+id/showsText"
         android:layout_marginTop="100dp"
-        android:layout_marginLeft="24dp"
-        />
+        android:layout_marginLeft="24dp" />
 
     <TextView
         android:id="@+id/infoText"
@@ -75,8 +74,7 @@
         android:textColor="@color/white"
         android:textFontWeight="400"
         android:fontFamily="sans-serif"
-        android:layout_marginTop="16dp"
-        />
+        android:layout_marginTop="16dp" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -96,14 +94,13 @@
         app:boxStrokeColor="@color/white"
         app:placeholderTextColor="@color/white"
         android:outlineAmbientShadowColor="@color/white"
-        app:hintTextColor="@color/white">
-
+        app:hintTextColor="@color/white"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"/>
-
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,6 +134,27 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/rememberBeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/passwordInput"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        android:buttonTint="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/rememberBeCheckBox"
+        app:layout_constraintTop_toTopOf="@+id/rememberBeCheckBox"
+        app:layout_constraintBottom_toBottomOf="@+id/rememberBeCheckBox"
+        android:text="Remember me"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/white"
+        android:textFontWeight="400"
+        android:textSize="17dp"
+        />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
@@ -155,7 +173,6 @@
         android:fontFamily="sans-serif"
         android:enabled="false"
         android:textColor="@color/button_text_selector"
-        android:textFontWeight="700"
-        />
+        android:textFontWeight="700" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
