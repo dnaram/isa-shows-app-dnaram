@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ShowsActivity">
+
+    <ImageView
+        android:id="@+id/logout_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logout_icon"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shows"
+        android:fontFamily="sans-serif"
+        android:textFontWeight="700"
+        android:textColor="@color/black"
+        android:textSize="36dp"
+        android:layout_marginHorizontal="23dp"
+        android:layout_marginTop="64dp"/>
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear shows!"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_button"
+        android:fontFamily="sans-serif"
+        android:textFontWeight="700"
+        android:layout_marginHorizontal="23dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:transformPivotY="0dp"
+        android:transformPivotX="0dp"
+        android:layout_marginTop="10dp" />
+
+
+    <ImageView
+        android:id="@+id/noShowsImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_space_icon"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="150dp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/noShowsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your shows are not showing. Get it?"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="26dp"
+        android:visibility="gone"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/showsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="25dp"
+        tools:listitem="@layout/view_show_item"/>
+
+    <!-- TODO: Create empty state text -->
+
+</LinearLayout>
