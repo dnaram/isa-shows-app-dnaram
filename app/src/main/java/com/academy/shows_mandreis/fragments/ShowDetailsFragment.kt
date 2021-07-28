@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.academy.shows_mandreis.R
 import com.academy.shows_mandreis.databinding.DialogAddReviewBinding
@@ -42,8 +43,8 @@ class ShowDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.topAppBar.title = args.name
-        binding.descriptionText.text = args.desc
-        binding.showImage.setImageResource(args.pic)
+        binding.descriptionText.text = args.description
+        binding.showImage.setImageResource(args.picture)
 
         binding.writeReviewButton.setOnClickListener {
             showBottomSheet()
@@ -91,13 +92,18 @@ class ShowDetailsFragment : Fragment() {
 
             val average = ((total / reviews.size) * 100).roundToInt() / 100.0
 
-            binding.reviewsStatsText.text = reviews.size.toString().plus(" REVIEWS, ").plus(average.toString()).plus(" AVERAGE")
+            binding.reviewsStatsText.text = String.format(resources.getString(R.string.rating_stats), reviews.size,  average)
+            binding.reviewRatingBar.setIsIndicator(false)
             binding.reviewRatingBar.rating = average.toFloat()
+            binding.reviewRatingBar.setIsIndicator(true)
         }
     }
 
     private fun initRecyclerView() {
         binding.reviewsRecycler.layoutManager = LinearLayoutManager(view?.context, LinearLayoutManager.VERTICAL, false)
+        val itemDecoration = DividerItemDecoration(view?.context, DividerItemDecoration.VERTICAL)
+        itemDecoration.setDrawable(resources.getDrawable(R.drawable.layer, null))
+        binding.reviewsRecycler.addItemDecoration(itemDecoration)
 
         val reviews = emptyList<Review>()
         adapter = ReviewsAdapter(reviews)

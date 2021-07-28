@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.academy.shows_mandreis.R
 import com.academy.shows_mandreis.ui.ShowsActivity
 
 class LoginFragment : Fragment() {
@@ -61,7 +62,7 @@ class LoginFragment : Fragment() {
                 updateRememberMeStatus(binding.rememberBeCheckBox.isChecked)
                 navigateToShowsFragment()
             } else {
-                binding.emailInput.error = "Invalid email address."
+                binding.emailInput.error = resources.getString(R.string.email_input_error_message)
             }
         }
     }

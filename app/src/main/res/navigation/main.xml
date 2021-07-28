@@ -44,10 +44,10 @@
             android:name="name"
             app:argType="string"/>
         <argument
-            android:name="desc"
+            android:name="description"
             app:argType="string"/>
         <argument
-            android:name="pic"
+            android:name="picture"
             app:argType="integer"/>
 
     </fragment>

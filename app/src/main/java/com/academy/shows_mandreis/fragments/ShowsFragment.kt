@@ -169,19 +169,18 @@ class ShowsFragment : Fragment() {
         builder?.show()
     }
 
-    @SuppressLint("SetTextI18n")
     private fun switchScreenShowsState() {
         showsVisible = !showsVisible
         if (showsVisible) {
             binding.showsRecycler.visibility = View.VISIBLE
             binding.noShowsImage.visibility = View.GONE
             binding.noShowsText.visibility = View.GONE
-            binding.testButton.text = "Clear shows!"
+            binding.testButton.text = resources.getString(R.string.clear_shows)
         } else {
             binding.showsRecycler.visibility = View.GONE
             binding.noShowsImage.visibility = View.VISIBLE
             binding.noShowsText.visibility = View.VISIBLE
-            binding.testButton.text = "Show shows! (pun intended)"
+            binding.testButton.text = resources.getString(R.string.show_shows)
         }
     }
 
